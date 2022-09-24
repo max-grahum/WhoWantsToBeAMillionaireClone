@@ -6,46 +6,61 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 public class Game {
 
+    private final String title = "Who Wants To Be A Millionaire!";
+    
     //variable to break the running loop via request
     private boolean running;
-    
+
     //file data manipulation object
     private SavedGame save;
-    
+
     //pool of questions to grab from
     private QuestionPool questionPool;
-    
+
     //the current question number
     private static int questionNumber;
-    
+
     //A list of each question's value 
     private List<Integer> questionsWorth;
-    
+
     //the current question  
     private Question currentQuestion;
 
     private Scanner sc;
-    
+
     //hashmap of all the helplines
     public static HashMap<String, Help> helpLines;
-    
+
     public Game() {
-        init();
-    }
-    
-    //initialise game
-    public void init(){
-        this.questionPool = new QuestionPool();
         
+        //home screen
+        HomeScreen homeScreen = new HomeScreen();
+        
+        //GUI Setup
+        JFrame frame = new JFrame(title);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.getContentPane().add(new GUIController(homeScreen));
+        frame.pack();
+        
+        //init();
+    }
+
+    //initialise game
+    public void init() {
+        this.questionPool = new QuestionPool();
+
         //gets saved data from possible previous game
         save = new SavedGame();
         Help5050 help5050 = new Help5050(save.loadUsed5050());
         HelpAudience helpAudience = new HelpAudience(save.loadUsedAsk());
         this.questionNumber = save.loadQuestionNumber();
-        
+
         //setup helpline hashmap
         this.helpLines = new HashMap<>();
         this.helpLines.put("50/50", help5050);
@@ -75,21 +90,21 @@ public class Game {
     //play the game
     public void start() {
         this.running = true;
-        
+
         //check if the user has not restarted and if so plays the intro
-        if(questionNumber <= -2){
+        if (questionNumber <= -2) {
             playIntro();
             ++questionNumber;
             save.save(questionNumber, this.helpLines.get("50/50").isUsed(), this.helpLines.get("ask the audience").isUsed());
         }
-        
+
         //main game loop
         while (running) {
             questionNumber++;
             save.save(questionNumber, this.helpLines.get("50/50").isUsed(), this.helpLines.get("ask the audience").isUsed());
-            
+
             //if we have completed the million dollar question play the win sequence
-            if(questionNumber >= this.questionsWorth.size()){
+            if (questionNumber >= this.questionsWorth.size()) {
                 playWin();
                 this.requestStop();
                 break;
@@ -106,9 +121,9 @@ public class Game {
             handleUserInput(input);
         }
     }
-    
+
     //intro sequence
-    public void playIntro(){
+    public void playIntro() {
         try {
             System.out.println(Colour.BLUE + "Hello! and Welcome to WHO WANTS TO BE A MILLIONAIRE!" + Colour.RESET);
             Thread.sleep(3000);
@@ -126,7 +141,7 @@ public class Game {
             Thread.sleep(3500);
             System.out.println("This will poll the audience, and give you what percent of the audience choose each of the 4 answers.");
             Thread.sleep(4500);
-            System.out.println("\nIf you would like to take a break you can close the game by answering " + Colour.BLUE + "\"x\"" + Colour.RESET +  " to any question.");
+            System.out.println("\nIf you would like to take a break you can close the game by answering " + Colour.BLUE + "\"x\"" + Colour.RESET + " to any question.");
             Thread.sleep(4500);
             System.out.println("Don't worry, your progress is saved you can return at any time.\n");
             Thread.sleep(4500);
@@ -134,21 +149,21 @@ public class Game {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //win sequence
-    public void playWin(){
-        try{
+    public void playWin() {
+        try {
             System.out.println("\n" + Colour.BLUE + "CONGRATULATIONS YOU JUST WON A MILLION " + Colour.RESET + "\"not real\"" + Colour.BLUE + " DOLLARS!!!\n" + Colour.RESET);
             Thread.sleep(2500);
-            
+
             questionNumber = -1;
             helpLines.get("50/50").setUsed(false);
             helpLines.get("ask the audience").setUsed(false);
             save.save(questionNumber, this.helpLines.get("50/50").isUsed(), this.helpLines.get("ask the audience").isUsed());
-            
+
             //checks if the player would like to play again
             boolean result = this.getRetryInput();
-            if(result){
+            if (result) {
                 this.init();
                 this.start();
             }
@@ -184,29 +199,29 @@ public class Game {
     public String getUserInput() {
         String responce = null;
         boolean isValid = false;
-        
+
         //loops until the user enters a valid input
         while (!isValid) {
-            
+
             //promt the user
-            String promt = "("+Colour.BLUE+"x"+Colour.RESET+", "+Colour.BLUE+"a"+Colour.RESET+", "+Colour.BLUE+"b"+Colour.RESET+", "+Colour.BLUE+"c"+Colour.RESET+", "+Colour.BLUE+"d"+Colour.RESET+", ";
-            if(!this.helpLines.get("50/50").isUsed()){
-                promt += Colour.BLUE+"50/50, "+Colour.RESET;
+            String promt = "(" + Colour.BLUE + "x" + Colour.RESET + ", " + Colour.BLUE + "a" + Colour.RESET + ", " + Colour.BLUE + "b" + Colour.RESET + ", " + Colour.BLUE + "c" + Colour.RESET + ", " + Colour.BLUE + "d" + Colour.RESET + ", ";
+            if (!this.helpLines.get("50/50").isUsed()) {
+                promt += Colour.BLUE + "50/50, " + Colour.RESET;
             }
-            if(!this.helpLines.get("ask the audience").isUsed()){
-                promt += Colour.BLUE+"ask the audience"+Colour.RESET;
+            if (!this.helpLines.get("ask the audience").isUsed()) {
+                promt += Colour.BLUE + "ask the audience" + Colour.RESET;
             }
             System.out.print(promt + ") >> ");
-            
+
             //get a new responce
             responce = sc.nextLine().toLowerCase().trim();
-            
+
             //check if valid
-            if (responce.equals("a") || responce.equals("b") || responce.equals("c") || responce.equals("d") 
+            if (responce.equals("a") || responce.equals("b") || responce.equals("c") || responce.equals("d")
                     || responce.equals("x")) {
                 isValid = true;
             }
-            
+
             //respond to unique help line calls
             if (responce.equals("50/50") || responce.equals("50")) {
                 System.out.println();
@@ -225,15 +240,15 @@ public class Game {
     //handle a valid answer
     public void handleUserInput(String input) {
         switch (input) {
-            
+
             //exit the game
             case "x":
                 this.requestStop();
                 break;
-            
+
             //an answer
             default:
-                
+
                 //checks if correct
                 if (this.currentQuestion.isCorrect(input)) {
                     System.out.println(Colour.GREEN + "CORRECT!" + Colour.RESET);
@@ -244,34 +259,34 @@ public class Game {
                     }
                 } else {
                     System.out.println(Colour.RED + "INCORRECT...\n\n" + Colour.RESET);
-                    
+
                     //clears progress
                     this.questionPool = new QuestionPool();
                     this.questionNumber = -1;
                     this.helpLines.get("50/50").setUsed(false);
                     this.helpLines.get("ask the audience").setUsed(false);
-                    
+
                     save.save(questionNumber, false, false);
-                    
+
                     try {
                         Thread.sleep(1500);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+
                     //ask if the player would like to play again
-                    if(!getRetryInput()){
+                    if (!getRetryInput()) {
                         this.requestStop();
                     }
-                         
+
                 }
                 break;
         }
     }
-    
+
     //asks if the player would like to retry the game
-    public boolean getRetryInput(){
-        
+    public boolean getRetryInput() {
+
         String responce = null;
         boolean isValid = false;
         while (!isValid) {
@@ -282,10 +297,10 @@ public class Game {
             }
         }
         boolean result = true;
-        if(!responce.equals("y")){
+        if (!responce.equals("y")) {
             result = false;
         }
-        
+
         return result;
     }
 
@@ -297,9 +312,7 @@ public class Game {
 
     //Entry method
     public static void main(String[] args) {
+        Game game = new Game();
         
-        //new instance of the game and starts the game
-        Game newGame = new Game();
-        newGame.start();
     }
 }
