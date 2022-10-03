@@ -37,12 +37,15 @@ public class HomeScreen extends JPanel implements ActionListener {
         
         this.newGameBtn = new JButton();
         this.newGameBtn.setText("New Game");
+        this.newGameBtn.addActionListener(this);
         
         this.continueBtn = new JButton();
         this.continueBtn.setText("Continue");
+        this.continueBtn.addActionListener(this);
         
         this.quitBtn = new JButton();
         this.quitBtn.setText("Quit");
+        this.quitBtn.addActionListener(this);
         
         this.buttonPanel.add(newGameBtn, BorderLayout.NORTH);
         this.buttonPanel.add(continueBtn, BorderLayout.CENTER);
@@ -81,6 +84,15 @@ public class HomeScreen extends JPanel implements ActionListener {
         //if timer finished
         if (source == timer) {
             drawPanel.repaint();
+        }
+        if (source == newGameBtn){
+            System.out.println("NewGame!");
+        }
+        if(source == continueBtn){
+            System.out.println("Continue!");
+        }
+        if(source == quitBtn){
+            System.out.println("Quit!");
         }
     }
     
