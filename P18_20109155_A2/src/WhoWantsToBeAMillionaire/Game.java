@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 
 public class Game {
 
-    private final String title = "Who Wants To Be A Millionaire!";
     
     //variable to break the running loop via request
     private boolean running;
@@ -37,16 +36,7 @@ public class Game {
 
     public Game() {
         
-        //home screen
-        HomeScreen homeScreen = new HomeScreen();
-        
-        //GUI Setup
-        JFrame frame = new JFrame(title);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.getContentPane().add(new GUIController(homeScreen));
-        frame.pack();
+        ScreenGUI gui = new ScreenGUI();
         
         //init();
     }
