@@ -23,7 +23,6 @@ import javax.swing.Timer;
  */
 public class HomeScreen extends JPanel implements ActionListener {
 
-    private final DrawPanel drawPanel;
     private final JPanel buttonPanel;
     
     private final JButton newGameBtn, continueBtn, quitBtn;
@@ -35,7 +34,7 @@ public class HomeScreen extends JPanel implements ActionListener {
     
     public HomeScreen(){
         super(new BorderLayout());
-        this.drawPanel = new DrawPanel();
+        super.setPreferredSize(new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT));
         
         this.panelSize = new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT/2);
         
@@ -72,25 +71,8 @@ public class HomeScreen extends JPanel implements ActionListener {
         timer = new Timer(25, this);
         timer.start();
         
-        super.add(this.drawPanel, BorderLayout.NORTH);
         super.add(this.buttonPanel, BorderLayout.SOUTH);
-    }
-    
-    public class DrawPanel extends JPanel {
-
-        //setup draw panel
-        public DrawPanel(){
-            super.setPreferredSize(panelSize);
-            super.setBackground(Color.BLUE);
-        }
-        
-        //custom painting goes here
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-        }
-        
-    }
-    
+    }    
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -98,10 +80,6 @@ public class HomeScreen extends JPanel implements ActionListener {
         //get the events source component;
         Object source = e.getSource();
         
-        //if timer finished
-        if (source == timer) {
-            drawPanel.repaint();
-        }
         if (source == newGameBtn){
             System.out.println("NewGame!");
         }
