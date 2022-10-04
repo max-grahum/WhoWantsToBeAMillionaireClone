@@ -8,6 +8,7 @@ package WhoWantsToBeAMillionaire;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,31 +26,41 @@ public class HomeScreen extends JPanel implements ActionListener {
     private final JPanel buttonPanel;
     
     private final JButton newGameBtn, continueBtn, quitBtn;
+    private final Dimension buttonSize;
     
     private Timer timer;
+    
+    
     
     public HomeScreen(){
         super(new BorderLayout());
         this.drawPanel = new DrawPanel();
         
         this.buttonPanel = new JPanel();
-        this.buttonPanel.setPreferredSize(new Dimension(1200, 400));
+        this.buttonPanel.setPreferredSize(new Dimension(1000, 400));
+        this.buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
+        this.buttonPanel.setBackground(Color.BLUE);
+        
+        this.buttonSize = new Dimension(500, 80);
         
         this.newGameBtn = new JButton();
         this.newGameBtn.setText("New Game");
         this.newGameBtn.addActionListener(this);
+        this.newGameBtn.setPreferredSize(buttonSize);
         
         this.continueBtn = new JButton();
         this.continueBtn.setText("Continue");
         this.continueBtn.addActionListener(this);
+        this.continueBtn.setPreferredSize(buttonSize);
         
         this.quitBtn = new JButton();
         this.quitBtn.setText("Quit");
         this.quitBtn.addActionListener(this);
+        this.quitBtn.setPreferredSize(buttonSize);
         
-        this.buttonPanel.add(newGameBtn, BorderLayout.NORTH);
-        this.buttonPanel.add(continueBtn, BorderLayout.CENTER);
-        this.buttonPanel.add(quitBtn, BorderLayout.SOUTH);
+        this.buttonPanel.add(newGameBtn);
+        this.buttonPanel.add(continueBtn);
+        this.buttonPanel.add(quitBtn);
         
         
         timer = new Timer(25, this);

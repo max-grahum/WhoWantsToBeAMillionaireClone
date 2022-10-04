@@ -115,23 +115,23 @@ public class Game {
     //intro sequence
     public void playIntro() {
         try {
-            System.out.println(Colour.BLUE + "Hello! and Welcome to WHO WANTS TO BE A MILLIONAIRE!" + Colour.RESET);
+            System.out.println(ConsoleColour.BLUE + "Hello! and Welcome to WHO WANTS TO BE A MILLIONAIRE!" + ConsoleColour.RESET);
             Thread.sleep(3000);
             System.out.println("\nThe aim of the game is simple...");
             Thread.sleep(2000);
-            System.out.println("Answer the questions as they come to win " + Colour.BLUE + "A MILLION DOLLARS!" + Colour.RESET);
+            System.out.println("Answer the questions as they come to win " + ConsoleColour.BLUE + "A MILLION DOLLARS!" + ConsoleColour.RESET);
             Thread.sleep(3000);
             System.out.println("\nYou have two life-lines you can use on any question:");
             Thread.sleep(3500);
-            System.out.println("\nThe 1st life-line is the " + Colour.BLUE + "\"50/50\":" + Colour.RESET);
+            System.out.println("\nThe 1st life-line is the " + ConsoleColour.BLUE + "\"50/50\":" + ConsoleColour.RESET);
             Thread.sleep(2500);
             System.out.println("This will give you 2 possible answers, giving you a 50% chance.");
             Thread.sleep(3500);
-            System.out.println("\nThe 2nd life-line is the " + Colour.BLUE + "\"ask the audience\":" + Colour.RESET);
+            System.out.println("\nThe 2nd life-line is the " + ConsoleColour.BLUE + "\"ask the audience\":" + ConsoleColour.RESET);
             Thread.sleep(3500);
             System.out.println("This will poll the audience, and give you what percent of the audience choose each of the 4 answers.");
             Thread.sleep(4500);
-            System.out.println("\nIf you would like to take a break you can close the game by answering " + Colour.BLUE + "\"x\"" + Colour.RESET + " to any question.");
+            System.out.println("\nIf you would like to take a break you can close the game by answering " + ConsoleColour.BLUE + "\"x\"" + ConsoleColour.RESET + " to any question.");
             Thread.sleep(4500);
             System.out.println("Don't worry, your progress is saved you can return at any time.\n");
             Thread.sleep(4500);
@@ -143,7 +143,7 @@ public class Game {
     //win sequence
     public void playWin() {
         try {
-            System.out.println("\n" + Colour.BLUE + "CONGRATULATIONS YOU JUST WON A MILLION " + Colour.RESET + "\"not real\"" + Colour.BLUE + " DOLLARS!!!\n" + Colour.RESET);
+            System.out.println("\n" + ConsoleColour.BLUE + "CONGRATULATIONS YOU JUST WON A MILLION " + ConsoleColour.RESET + "\"not real\"" + ConsoleColour.BLUE + " DOLLARS!!!\n" + ConsoleColour.RESET);
             Thread.sleep(2500);
 
             questionNumber = -1;
@@ -170,13 +170,13 @@ public class Game {
         for (int i = this.questionsWorth.size() - 1; i >= 0; i--) {
             System.out.print("▐ ");
             if (i < this.questionNumber) {
-                System.out.print(Colour.BLUE);
+                System.out.print(ConsoleColour.BLUE);
             } else if (i == this.questionNumber) {
-                System.out.print(Colour.YELLOW);
+                System.out.print(ConsoleColour.YELLOW);
             } else {
-                System.out.print(Colour.RED);
+                System.out.print(ConsoleColour.RED);
             }
-            System.out.printf("%20s", i + 1 + " - $" + this.questionsWorth.get(i) + Colour.RESET + " ▌\n");
+            System.out.printf("%20s", i + 1 + " - $" + this.questionsWorth.get(i) + ConsoleColour.RESET + " ▌\n");
         }
         System.out.println(" ▀▀▀▀▀▀▀▀▀▀");
 
@@ -194,12 +194,12 @@ public class Game {
         while (!isValid) {
 
             //promt the user
-            String promt = "(" + Colour.BLUE + "x" + Colour.RESET + ", " + Colour.BLUE + "a" + Colour.RESET + ", " + Colour.BLUE + "b" + Colour.RESET + ", " + Colour.BLUE + "c" + Colour.RESET + ", " + Colour.BLUE + "d" + Colour.RESET + ", ";
+            String promt = "(" + ConsoleColour.BLUE + "x" + ConsoleColour.RESET + ", " + ConsoleColour.BLUE + "a" + ConsoleColour.RESET + ", " + ConsoleColour.BLUE + "b" + ConsoleColour.RESET + ", " + ConsoleColour.BLUE + "c" + ConsoleColour.RESET + ", " + ConsoleColour.BLUE + "d" + ConsoleColour.RESET + ", ";
             if (!this.helpLines.get("50/50").isUsed()) {
-                promt += Colour.BLUE + "50/50, " + Colour.RESET;
+                promt += ConsoleColour.BLUE + "50/50, " + ConsoleColour.RESET;
             }
             if (!this.helpLines.get("ask the audience").isUsed()) {
-                promt += Colour.BLUE + "ask the audience" + Colour.RESET;
+                promt += ConsoleColour.BLUE + "ask the audience" + ConsoleColour.RESET;
             }
             System.out.print(promt + ") >> ");
 
@@ -241,14 +241,14 @@ public class Game {
 
                 //checks if correct
                 if (this.currentQuestion.isCorrect(input)) {
-                    System.out.println(Colour.GREEN + "CORRECT!" + Colour.RESET);
+                    System.out.println(ConsoleColour.GREEN + "CORRECT!" + ConsoleColour.RESET);
                     try {
                         Thread.sleep(1500);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    System.out.println(Colour.RED + "INCORRECT...\n\n" + Colour.RESET);
+                    System.out.println(ConsoleColour.RED + "INCORRECT...\n\n" + ConsoleColour.RESET);
 
                     //clears progress
                     this.questionPool = new QuestionPool();

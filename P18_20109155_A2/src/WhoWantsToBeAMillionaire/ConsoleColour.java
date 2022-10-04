@@ -1,7 +1,7 @@
 package WhoWantsToBeAMillionaire;
 
 //clear to store colour codes
-public class Colour {
+public class ConsoleColour {
     
     //reset code to clear colour settigns
     public final static String RESET = "\u001b[0m";
