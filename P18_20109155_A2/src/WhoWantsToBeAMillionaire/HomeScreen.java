@@ -26,7 +26,7 @@ public class HomeScreen extends JPanel implements ActionListener {
     private final JPanel buttonPanel;
     
     private final JButton newGameBtn, continueBtn, quitBtn;
-    private final Dimension buttonSize;
+    private final Dimension buttonSize, panelSize;
     
     private Timer timer;
     
@@ -36,8 +36,10 @@ public class HomeScreen extends JPanel implements ActionListener {
         super(new BorderLayout());
         this.drawPanel = new DrawPanel();
         
+        this.panelSize = new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT/2);
+        
         this.buttonPanel = new JPanel();
-        this.buttonPanel.setPreferredSize(new Dimension(1000, 400));
+        this.buttonPanel.setPreferredSize(panelSize);
         this.buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
         this.buttonPanel.setBackground(Color.BLUE);
         
@@ -74,7 +76,7 @@ public class HomeScreen extends JPanel implements ActionListener {
 
         //setup draw panel
         public DrawPanel(){
-            super.setPreferredSize(new Dimension(1200, 400));
+            super.setPreferredSize(panelSize);
             super.setBackground(Color.BLUE);
         }
         

@@ -5,21 +5,30 @@ import javax.swing.JPanel;
 
 public class ScreenGUI extends JFrame {
 
-    private final String title = "Who Wants To Be A Millionaire!";
+    private final String TITLE = "Who Wants To Be A Millionaire!";
+    public static final int WIDTH = 1000, HEIGHT = 800;
 
-    private GUIController controller;
-    private HomeScreen homeScreen;
+    private final GUIController controller;
+    private final HomeScreen homeScreen;
+    private final QAScreen qaScreen;
+    private final MoneyScreen moneyScreen;
+    private final PauseScreen pauseScreen;
+    private final FinaleScreen finaleScreen;
 
     public ScreenGUI() {
        
 
         //home screen
         homeScreen = new HomeScreen();
+        moneyScreen = new MoneyScreen();
+        qaScreen = new QAScreen();
+        pauseScreen = new PauseScreen();
+        finaleScreen = new FinaleScreen();
  
-        controller = new GUIController(homeScreen);
+        controller = new GUIController(moneyScreen);
         
         //GUI Setup
-        JFrame frame = new JFrame(title);
+        JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
