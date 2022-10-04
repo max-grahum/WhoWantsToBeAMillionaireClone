@@ -31,13 +31,13 @@ public class Help5050 extends Help{
         char other = (char) (randomNumber + 'a');
         
         //prints the outcome
-        System.out.print(Colour.BLUE);
+        System.out.print(ConsoleColour.BLUE);
         if(index < randomNumber){
             System.out.println("It's either " + String.valueOf(correctAnswer).toUpperCase() + " or " + String.valueOf(other).toUpperCase());
         }else{
             System.out.println("It's either " + String.valueOf(other).toUpperCase() + " or " + String.valueOf(correctAnswer).toUpperCase());
         }
-        System.out.println(Colour.RESET);
+        System.out.println(ConsoleColour.RESET);
         
     }
     
