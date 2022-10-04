@@ -25,11 +25,11 @@ public class ScreenGUI extends JFrame {
         pauseScreen = new PauseScreen();
         finaleScreen = new FinaleScreen();
  
-        //controller = new GUIController(homeScreen);
-        //controller = new GUIController(moneyScreen);
-        controller = new GUIController(qaScreen);
-        //controller = new GUIController(pauseScreen);
-        //controller = new GUIController(finaleScreen);
+//        controller = new GUIController(homeScreen);
+//        controller = new GUIController(moneyScreen);
+//        controller = new GUIController(qaScreen);
+        controller = new GUIController(pauseScreen);
+//        controller = new GUIController(finaleScreen);
         
         //GUI Setup
         JFrame frame = new JFrame(TITLE);

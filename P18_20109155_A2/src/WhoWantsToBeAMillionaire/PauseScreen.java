@@ -3,67 +3,57 @@ package WhoWantsToBeAMillionaire;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class PauseScreen extends JPanel implements ActionListener {
 
-    private final DrawPanel drawPanel;
     private final JPanel buttonPanel;
     
-    private final JButton newGameBtn, continueBtn, quitBtn;
+    private final JButton continueBtn, homeBtn;
+    private final Dimension buttonSize, panelSize;
     
-    private Timer timer;
     
     public PauseScreen(){
         super(new BorderLayout());
-        this.drawPanel = new DrawPanel();
+        super.setPreferredSize(new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT));
+        
+        this.panelSize = new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT/2);
         
         this.buttonPanel = new JPanel();
-        this.buttonPanel.setPreferredSize(new Dimension(1200, 400));
+        this.buttonPanel.setPreferredSize(panelSize);
+        this.buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
+        this.buttonPanel.setBackground(Color.BLUE);
         
-        this.newGameBtn = new JButton();
-        this.newGameBtn.setText("New Game");
-        this.newGameBtn.addActionListener(this);
-        
+        this.buttonSize = new Dimension(500, 80);
+   
         this.continueBtn = new JButton();
         this.continueBtn.setText("Continue");
         this.continueBtn.addActionListener(this);
+        this.continueBtn.setPreferredSize(buttonSize);
+        this.continueBtn.setFont(new Font("Ariel", Font.BOLD, 32));
         
-        this.quitBtn = new JButton();
-        this.quitBtn.setText("Quit");
-        this.quitBtn.addActionListener(this);
+        this.homeBtn = new JButton();
+        this.homeBtn.setText("Home");
+        this.homeBtn.addActionListener(this);
+        this.homeBtn.setPreferredSize(buttonSize);
+        this.homeBtn.setFont(new Font("Ariel", Font.BOLD, 32));
         
-        this.buttonPanel.add(newGameBtn, BorderLayout.NORTH);
-        this.buttonPanel.add(continueBtn, BorderLayout.CENTER);
-        this.buttonPanel.add(quitBtn, BorderLayout.SOUTH);
+        this.buttonPanel.add(continueBtn);
+        this.buttonPanel.add(homeBtn);
         
         
-        timer = new Timer(25, this);
-        timer.start();
-        
-        super.add(this.drawPanel, BorderLayout.NORTH);
         super.add(this.buttonPanel, BorderLayout.SOUTH);
     }
     
-    public class DrawPanel extends JPanel {
-
-        //setup draw panel
-        public DrawPanel(){
-            super.setPreferredSize(new Dimension(1200, 400));
-            super.setBackground(Color.BLUE);
-        }
-        
-        //custom painting goes here
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-        }
-        
-    }
+  
     
     
     @Override
@@ -71,21 +61,13 @@ public class PauseScreen extends JPanel implements ActionListener {
         
         //get the events source component;
         Object source = e.getSource();
-        
-        //if timer finished
-        if (source == timer) {
-            drawPanel.repaint();
-        }
-        if (source == newGameBtn){
-            System.out.println("NewGame!");
-        }
+      
         if(source == continueBtn){
             System.out.println("Continue!");
         }
-        if(source == quitBtn){
+        if(source == homeBtn){
             System.out.println("Quit!");
         }
     }
     
 }
-

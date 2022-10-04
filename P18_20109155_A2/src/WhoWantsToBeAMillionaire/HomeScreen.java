@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,16 +50,19 @@ public class HomeScreen extends JPanel implements ActionListener {
         this.newGameBtn.setText("New Game");
         this.newGameBtn.addActionListener(this);
         this.newGameBtn.setPreferredSize(buttonSize);
+        this.newGameBtn.setFont(new Font("Ariel", Font.BOLD, 32));
         
         this.continueBtn = new JButton();
         this.continueBtn.setText("Continue");
         this.continueBtn.addActionListener(this);
         this.continueBtn.setPreferredSize(buttonSize);
+        this.continueBtn.setFont(new Font("Ariel", Font.BOLD, 32));
         
         this.quitBtn = new JButton();
         this.quitBtn.setText("Quit");
         this.quitBtn.addActionListener(this);
         this.quitBtn.setPreferredSize(buttonSize);
+        this.quitBtn.setFont(new Font("Ariel", Font.BOLD, 32));
         
         this.buttonPanel.add(newGameBtn);
         this.buttonPanel.add(continueBtn);
