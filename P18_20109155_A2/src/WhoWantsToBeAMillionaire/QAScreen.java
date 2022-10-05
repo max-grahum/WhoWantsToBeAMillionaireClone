@@ -39,5 +39,12 @@ public class QAScreen extends JPanel {
             this.screenGUIContext.gotoHomeScreen();
         }
     }
+    
+    public void use5050(){
+        
+    }
+    public void useAudience(){
+        
+    }
 
 }
