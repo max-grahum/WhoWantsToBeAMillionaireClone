@@ -4,14 +4,8 @@ import java.util.Random;
 
 public class Help5050 extends Help{
 
-    public Help5050(boolean used) {
+    public Help5050(boolean used, String correctAnswer) {
         super("50 / 50", used);
-    }
-
-    //this help line randomly picks one other option to make a 50/50 with
-    @Override
-    public void use(String correctAnswer, int questionNum) {
-        
         //return if already used
         if(this.used == true){
             return;
@@ -38,7 +32,7 @@ public class Help5050 extends Help{
             System.out.println("It's either " + String.valueOf(other).toUpperCase() + " or " + String.valueOf(correctAnswer).toUpperCase());
         }
         System.out.println(ConsoleColour.RESET);
-        
     }
+
   
 }

@@ -215,12 +215,12 @@ public class Game {
             //respond to unique help line calls
             if (responce.equals("50/50") || responce.equals("50")) {
                 System.out.println();
-                this.helpLines.get("50/50").use(this.currentQuestion.getCorrectAnswer(), this.questionNumber);
+                this.helpLines.get("50/50").use(this.currentQuestion.getCorrectAnswer());
                 save.save(questionNumber, this.helpLines.get("50/50").isUsed(), this.helpLines.get("ask the audience").isUsed());
             }
             if (responce.equals("ask the audience") || responce.equals("ask")) {
                 System.out.println();
-                this.helpLines.get("ask the audience").use(this.currentQuestion.getCorrectAnswer(), this.questionNumber);
+                this.helpLines.get("ask the audience").use(this.currentQuestion.getCorrectAnswer());
                 save.save(questionNumber, this.helpLines.get("50/50").isUsed(), this.helpLines.get("ask the audience").isUsed());
             }
         }
