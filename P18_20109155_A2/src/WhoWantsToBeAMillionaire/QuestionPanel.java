@@ -162,5 +162,7 @@ public class QuestionPanel extends JPanel implements ActionListener {
         if (source == this.hAudienceBtn) {
             this.qaContext.useAudience();
         }
+        
+        SaveManager.getInstance().saveData(0, false, false);
     }
 }
