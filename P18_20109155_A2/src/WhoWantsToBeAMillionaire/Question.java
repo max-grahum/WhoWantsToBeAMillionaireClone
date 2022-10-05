@@ -36,25 +36,14 @@ public class Question implements QuestionInterface{
         return this.correctAnswer;
     }
     
+    public String getAnswer(String key){
+        return this.answers.get(key);
+    }
+    
     //returns the question formatted
     @Override
     public String toString(){
-        String text = "";
-        text += "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n";
-        text += "█               "+(!Game.helpLines.get("50/50").isUsed()?"50/50":"     ")+"              █        "+(!Game.helpLines.get("ask the audience").isUsed()?"Ask The Audience":"                ")+"       █\n";
-        text += "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n";
-        text += "█ " + String.format("%-66s", questionPromt1) + "█\n";
-        text += "█ " + String.format("%-66s", questionPromt2) + "█\n";
-        text += "███████████████████████████████████████████\n";
-        text += "█                                  █                               █\n";
-        text += "█    A:" + String.format("%-24s", answers.get("a")) + "    █    B:" + String.format("%-24s", answers.get("b")) + " █\n";
-        text += "█                                  █                               █\n";
-        text += "███████████████████████████████████████████\n";
-        text += "█                                  █                               █\n";
-        text += "█    C:" + String.format("%-24s", answers.get("c")) + "    █    D:" + String.format("%-24s", answers.get("d")) + " █\n";
-        text += "█                                  █                               █\n";
-        text += "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n";
-        
+        String text = "<html>" + this.questionPromt1 + "<br>" + this.questionPromt2 + "<html>";
         return text;
     }
     

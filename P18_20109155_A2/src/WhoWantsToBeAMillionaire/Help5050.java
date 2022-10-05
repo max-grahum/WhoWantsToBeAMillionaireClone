@@ -40,5 +40,5 @@ public class Help5050 extends Help{
         System.out.println(ConsoleColour.RESET);
         
     }
-    
+  
 }

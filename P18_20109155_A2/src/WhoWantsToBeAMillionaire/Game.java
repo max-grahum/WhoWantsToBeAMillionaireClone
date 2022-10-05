@@ -36,7 +36,7 @@ public class Game {
 
     public Game() {
         
-        ScreenGUI gui = new ScreenGUI();
+        ScreenController gui = new ScreenController();
         
         //init();
     }

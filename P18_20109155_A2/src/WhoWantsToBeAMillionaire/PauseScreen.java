@@ -21,11 +21,11 @@ public class PauseScreen extends JPanel implements ActionListener {
     private final Dimension buttonSize, panelSize;
     
     
-    public PauseScreen(){
+    public PauseScreen(ScreenController screenGUIContext){
         super(new BorderLayout());
-        super.setPreferredSize(new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT));
+        super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
         
-        this.panelSize = new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT/2);
+        this.panelSize = new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT/2);
         
         this.buttonPanel = new JPanel();
         this.buttonPanel.setPreferredSize(panelSize);

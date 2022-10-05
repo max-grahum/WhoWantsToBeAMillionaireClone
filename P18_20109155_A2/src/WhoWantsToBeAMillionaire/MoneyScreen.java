@@ -5,15 +5,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class MoneyScreen extends JPanel implements ActionListener {
+public class MoneyScreen extends JPanel {
 
     private final DrawPanel drawPanel;
+    
+    private ScreenController screenGUIContext;
 
     private final CustomMoneyPanel[] moneyPanels;
     private final int[] values;
@@ -21,13 +19,13 @@ public class MoneyScreen extends JPanel implements ActionListener {
 
     private final int currentIndex;
 
-    private final Timer timer;
-
-    public MoneyScreen() {
+    public MoneyScreen(ScreenController screenGUIContext) {
         super(new BorderLayout());
         this.drawPanel = new DrawPanel();
 
         currentIndex = 3;
+        
+        this.screenGUIContext = screenGUIContext;
 
         this.values = new int[]{
             100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000,
@@ -50,9 +48,6 @@ public class MoneyScreen extends JPanel implements ActionListener {
             this.moneyPanels[i] = new CustomMoneyPanel(this.values[i], currentColour);
         }
 
-        timer = new Timer(25, this);
-        timer.start();
-
         super.add(this.drawPanel);
     }
 
@@ -60,33 +55,23 @@ public class MoneyScreen extends JPanel implements ActionListener {
 
         //setup draw panel
         public DrawPanel() {
-            super.setPreferredSize(new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT));
+            super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
             super.setBackground(Color.BLUE);
             super.setFont(new Font("Ariel", Font.BOLD, 32));
         }
 
         //custom painting goes here
+        @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             
             for (int i = 0; i < moneyPanels.length; i++) {
                 moneyPanels[moneyPanels.length-1 - i].drawCustomMoneyPanel(g, 250, 100 + (i * 45));
             }
+            
         }
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        //get the events source component;
-        Object source = e.getSource();
-
-        //if timer finished
-        if (source == timer) {
-            drawPanel.repaint();
-        }
-
-    }
 
 }

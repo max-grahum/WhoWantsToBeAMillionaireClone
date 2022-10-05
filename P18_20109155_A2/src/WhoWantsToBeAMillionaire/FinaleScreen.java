@@ -16,7 +16,7 @@ public class FinaleScreen extends JPanel implements ActionListener {
 
     private Timer timer;
 
-    public FinaleScreen() {
+    public FinaleScreen(ScreenController screenGUIContext) {
         super(new BorderLayout());
         this.drawPanel = new DrawPanel();
 
@@ -30,11 +30,12 @@ public class FinaleScreen extends JPanel implements ActionListener {
 
         //setup draw panel
         public DrawPanel() {
-            super.setPreferredSize(new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT));
+            super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
             super.setBackground(Color.BLUE);
         }
 
         //custom painting goes here
+        @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
         }
