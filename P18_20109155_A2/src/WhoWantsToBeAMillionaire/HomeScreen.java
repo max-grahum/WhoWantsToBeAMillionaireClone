@@ -23,6 +23,8 @@ import javax.swing.Timer;
  */
 public class HomeScreen extends JPanel implements ActionListener {
 
+    private ScreenController screenGUIContext;
+    
     private final JPanel buttonPanel;
     
     private final JButton newGameBtn, continueBtn, quitBtn;
@@ -32,11 +34,13 @@ public class HomeScreen extends JPanel implements ActionListener {
     
     
     
-    public HomeScreen(){
+    public HomeScreen(ScreenController screenGUIContext){
         super(new BorderLayout());
-        super.setPreferredSize(new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT));
+        super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
         
-        this.panelSize = new Dimension(ScreenGUI.WIDTH, ScreenGUI.HEIGHT/2);
+        this.screenGUIContext = screenGUIContext;
+        
+        this.panelSize = new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT/2);
         
         this.buttonPanel = new JPanel();
         this.buttonPanel.setPreferredSize(panelSize);
@@ -81,13 +85,16 @@ public class HomeScreen extends JPanel implements ActionListener {
         Object source = e.getSource();
         
         if (source == newGameBtn){
-            System.out.println("NewGame!");
+            System.out.println("New Game!");
+            this.screenGUIContext.gotoMoneyScreen();
         }
         if(source == continueBtn){
             System.out.println("Continue!");
+            this.screenGUIContext.gotoMoneyScreen();
         }
         if(source == quitBtn){
             System.out.println("Quit!");
+            this.screenGUIContext.close();
         }
     }
     
