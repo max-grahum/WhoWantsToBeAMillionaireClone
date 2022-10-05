@@ -40,7 +40,7 @@ public class QuestionPanel extends JPanel implements ActionListener {
         this.answered = false;
 
         this.help5050 = help5050;
-        
+
         this.buttonSize = new Dimension(400, 80);
         this.buttonFont = new Font("Ariel", Font.BOLD, 26);
 
@@ -81,19 +81,22 @@ public class QuestionPanel extends JPanel implements ActionListener {
 
     }
 
-    public void updateQuestion(Question question) {
+    public void updateQuestion(Question question, Help5050 help5050) {
         this.answered = false;
         this.question = question;
         this.qLbl.setText(question.toString());
+        
+        this.help5050 = help5050;
 
-        this.ansBtns.get("a").setText(question.getAnswer("a"));
-        this.ansBtns.get("b").setText(question.getAnswer("b"));
-        this.ansBtns.get("c").setText(question.getAnswer("c"));
-        this.ansBtns.get("d").setText(question.getAnswer("d"));
+        this.ansBtns.get("a").setText("a:" + question.getAnswer("a"));
+        this.ansBtns.get("b").setText("b:" + question.getAnswer("b"));
+        this.ansBtns.get("c").setText("c:" + question.getAnswer("c"));
+        this.ansBtns.get("d").setText("d:" + question.getAnswer("d"));
 
         for (int i = 0; i < this.ansBtns.size(); i++) {
             JButton button = this.ansBtns.get(Character.toString((char) (97 + i)));
             button.setBackground(Color.LIGHT_GRAY);
+            button.setEnabled(true);
             button.update(button.getGraphics());
         }
     }
@@ -147,7 +150,16 @@ public class QuestionPanel extends JPanel implements ActionListener {
         }
 
         if (source == this.h5050Btn) {
-        } else if (source == this.hAudienceBtn) {
+            for (char character = 'a'; character <= 'd'; character++) {
+                String string = Character.toString(character);
+                JButton button = this.ansBtns.get(string);
+                boolean enable = this.help5050.answers.get(string);
+                button.setEnabled(enable);
+                button.update(button.getGraphics());
+            }
+
+        }
+        if (source == this.hAudienceBtn) {
             this.qaContext.useAudience();
         }
     }

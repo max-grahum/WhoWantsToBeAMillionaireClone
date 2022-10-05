@@ -42,10 +42,10 @@ public class QAScreen extends JPanel {
 
     public void getNewQuestion() {
         this.currentQuestion = questionPool.getRandomQuestion();
-        this.questionPanel.updateQuestion(this.currentQuestion);
         this.help5050 = new Help5050(false, this.currentQuestion.getCorrectAnswer());
         this.helpAudience = new HelpAudience(false, this.currentQuestion.getCorrectAnswer());
-        
+        this.questionPanel.updateQuestion(this.currentQuestion, help5050);
+
         this.audiencePanel.setVisible(false);
     }
 
@@ -83,9 +83,9 @@ public class QAScreen extends JPanel {
                 int index = character;
                 index -= 97;
                 int percent = helpAudience.percents.get(string);
-                
-                g.drawString(string + " (" + percent + "%)", 15, (90*index) + 55);
-                g.fillRect(110, (90*index) +30, percent * 2, 30);
+
+                g.drawString(string + " (" + percent + "%)", 15, (90 * index) + 55);
+                g.fillRect(110, (90 * index) + 30, percent * 2, 30);
             }
         }
     }

@@ -1,38 +1,41 @@
 package WhoWantsToBeAMillionaire;
 
+import java.util.HashMap;
 import java.util.Random;
 
-public class Help5050 extends Help{
+public class Help5050 extends Help {
+
+    public HashMap<String, Boolean> answers;
 
     public Help5050(boolean used, String correctAnswer) {
         super("50 / 50", used);
+
         //return if already used
-        if(this.used == true){
+        if (this.used == true) {
             return;
         }
+
         //toggle the used flag
         this.used = true;
-         
+
+        this.answers = new HashMap<>();
+
         //gets the correct answer's index
-        int index = (int) (correctAnswer.charAt(0) - 'a');
-        
+        int index = (int) (correctAnswer.charAt(0));
+
         //generates the random other option
         Random rand = new Random();
-        int randomNumber;
-        while((randomNumber = rand.nextInt(3)) == index){}
-        
-        //converts the other number to its char value
-        char other = (char) (randomNumber + 'a');
-        
-        //prints the outcome
-        System.out.print(ConsoleColour.BLUE);
-        if(index < randomNumber){
-            System.out.println("It's either " + String.valueOf(correctAnswer).toUpperCase() + " or " + String.valueOf(other).toUpperCase());
-        }else{
-            System.out.println("It's either " + String.valueOf(other).toUpperCase() + " or " + String.valueOf(correctAnswer).toUpperCase());
+        int randomNumber = index;
+        while ((randomNumber = rand.nextInt(3)) == index) {
         }
-        System.out.println(ConsoleColour.RESET);
+
+        int other = (randomNumber + 'a');
+
+        for (char character = 'a'; character <= 'd'; character++) {
+            Boolean anOption = (character == other || character == index);
+            System.out.println(anOption);
+            this.answers.put(Character.toString(character), anOption);
+        }
     }
 
-  
 }
