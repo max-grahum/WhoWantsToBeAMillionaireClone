@@ -45,6 +45,8 @@ public class QAScreen extends JPanel {
         this.questionPanel.updateQuestion(this.currentQuestion);
         this.help5050 = new Help5050(false, this.currentQuestion.getCorrectAnswer());
         this.helpAudience = new HelpAudience(false, this.currentQuestion.getCorrectAnswer());
+        
+        this.audiencePanel.setVisible(false);
     }
 
     public void HandleAnswer(boolean result) {
@@ -67,7 +69,8 @@ public class QAScreen extends JPanel {
         public AudiencePanel() {
             super.setPreferredSize(new Dimension(ScreenController.WIDTH / 3, ScreenController.HEIGHT / 3));
             super.setBackground(Color.BLACK);
-            super.setFont(new Font("Ariel", Font.BOLD, 32));
+            super.setFont(new Font("Ariel", Font.BOLD, 26));
+            super.setForeground(Color.WHITE);
         }
 
         //custom painting goes here
@@ -75,7 +78,15 @@ public class QAScreen extends JPanel {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            helpAudience.drawGraph(g);
+            for (char character = 'a'; character <= 'd'; character++) {
+                String string = String.valueOf(character);
+                int index = character;
+                index -= 97;
+                int percent = helpAudience.percents.get(string);
+                
+                g.drawString(string + " (" + percent + "%)", 15, (90*index) + 55);
+                g.fillRect(110, (90*index) +30, percent * 2, 30);
+            }
         }
     }
 }

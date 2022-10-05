@@ -47,8 +47,8 @@ public class Game {
 
         //gets saved data from possible previous game
         save = new SavedGame();
-        Help5050 help5050 = new Help5050(save.loadUsed5050());
-        HelpAudience helpAudience = new HelpAudience(save.loadUsedAsk());
+        Help5050 help5050 = new Help5050(save.loadUsed5050(),"a");
+        HelpAudience helpAudience = new HelpAudience(save.loadUsedAsk(), "a");
         this.questionNumber = save.loadQuestionNumber();
 
         //setup helpline hashmap
@@ -215,12 +215,10 @@ public class Game {
             //respond to unique help line calls
             if (responce.equals("50/50") || responce.equals("50")) {
                 System.out.println();
-                this.helpLines.get("50/50").use(this.currentQuestion.getCorrectAnswer());
                 save.save(questionNumber, this.helpLines.get("50/50").isUsed(), this.helpLines.get("ask the audience").isUsed());
             }
             if (responce.equals("ask the audience") || responce.equals("ask")) {
                 System.out.println();
-                this.helpLines.get("ask the audience").use(this.currentQuestion.getCorrectAnswer());
                 save.save(questionNumber, this.helpLines.get("50/50").isUsed(), this.helpLines.get("ask the audience").isUsed());
             }
         }

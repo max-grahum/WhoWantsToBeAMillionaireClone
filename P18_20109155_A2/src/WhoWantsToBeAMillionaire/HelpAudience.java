@@ -39,14 +39,7 @@ public class HelpAudience extends Help{
                 total += randomNumber;
                 percents.put(string, randomNumber);
             }
-            System.out.println(ConsoleColour.BLUE + string + ": " + percents.get(string) + "%");
         }
-        System.out.println(ConsoleColour.RESET);
     }
-    
-    public void drawGraph(Graphics g){
-        
-    }
-
    
 }
