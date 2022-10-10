@@ -56,8 +56,6 @@ public class ScreenController extends JFrame implements ActionListener {
     }
 
     private void changeScreen(String key) {
-        System.out.println("Changing screens!");
-
         CardLayout cl = (CardLayout) (this.panelHolder.getLayout());
         cl.show(this.panelHolder, key);
     }

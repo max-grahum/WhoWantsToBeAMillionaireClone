@@ -206,7 +206,7 @@ public class SaveManager {
     }
 
     public void saveData(int questionNum, boolean help5050, boolean helpAudience) {
-        System.out.println("(" + questionNum + ", " + help5050 + ", " + helpAudience + ")");
+        System.out.println("SAVING(" + questionNum + ", " + help5050 + ", " + helpAudience + ")");
         try {
             this.statement.addBatch("UPDATE DATA "
                     + "SET ID = 1, QUESTIONNUM = " + questionNum + ", HELPFIFTY = " + help5050 + ", HELPAUDIENCE = " + helpAudience);

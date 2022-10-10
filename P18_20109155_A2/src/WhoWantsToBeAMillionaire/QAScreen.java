@@ -22,7 +22,9 @@ public class QAScreen extends JPanel {
     private Help5050 help5050;
     private HelpAudience helpAudience;
 
-    private JPanel decorPanel, homeBtnPanel;
+    private JPanel homeBtnPanel;
+    private BackgroundImagePanel backgroundPanel;
+
     private JButton homeBtn;
 
     private Dimension panelSize;
@@ -41,8 +43,8 @@ public class QAScreen extends JPanel {
 
         this.screenGUIContext = screenGUIContext;
 
-        this.decorPanel = new JPanel(new BorderLayout());
-        this.decorPanel.setPreferredSize(this.panelSize);
+        this.backgroundPanel = new BackgroundImagePanel();
+        this.backgroundPanel.setPreferredSize(this.panelSize);
         this.homeBtn = new JButton("Home");
         this.homeBtn.setFont(new Font("Ariel", Font.BOLD, 16));
         this.homeBtn.setPreferredSize(new Dimension(100, 75));
@@ -52,18 +54,17 @@ public class QAScreen extends JPanel {
                 screenGUIContext.gotoHomeScreen();
             }
         });
-        this.decorPanel.add(this.audiencePanel, BorderLayout.EAST);
+        this.backgroundPanel.add(this.audiencePanel, BorderLayout.EAST);
         this.homeBtnPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         this.homeBtnPanel.add(this.homeBtn);
-        this.decorPanel.add(this.homeBtnPanel);
-        
+        this.backgroundPanel.add(this.homeBtnPanel);
 
         this.questionPanel = new QuestionPanel(this, help5050);
 
         this.questionPool = new QuestionPool();
 
         this.questionPanel.setPreferredSize(this.panelSize);
-        super.add(this.decorPanel, BorderLayout.NORTH);
+        super.add(this.backgroundPanel, BorderLayout.NORTH);
         super.add(this.questionPanel, BorderLayout.SOUTH);
     }
 

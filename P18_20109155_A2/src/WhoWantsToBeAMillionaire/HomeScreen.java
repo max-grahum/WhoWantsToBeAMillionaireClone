@@ -11,8 +11,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -24,95 +32,96 @@ import javax.swing.Timer;
 public class HomeScreen extends JPanel implements ActionListener {
 
     private ScreenController screenGUIContext;
-    
+
     private final JPanel buttonPanel;
-    
+    private final BackgroundImagePanel backgroundPanel;
+
     private final SaveManager saveManager;
-    
+
     private final JButton newGameBtn, continueBtn, quitBtn;
     private final Dimension buttonSize, panelSize;
-    
+
     private Timer timer;
-    
-    
-    
-    public HomeScreen(ScreenController screenGUIContext){
+
+    public HomeScreen(ScreenController screenGUIContext) {
         super(new BorderLayout());
         super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
-        
+
         this.screenGUIContext = screenGUIContext;
-        
+
         this.saveManager = SaveManager.getInstance();
-        
-        this.panelSize = new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT/2);
-        
+
+        this.panelSize = new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT / 2);
+
         this.buttonPanel = new JPanel();
         this.buttonPanel.setPreferredSize(panelSize);
         this.buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
         this.buttonPanel.setBackground(Color.BLUE);
-        
+
         this.buttonSize = new Dimension(500, 80);
-        
+
         this.newGameBtn = new JButton();
         this.newGameBtn.setText("New Game");
         this.newGameBtn.addActionListener(this);
         this.newGameBtn.setPreferredSize(buttonSize);
         this.newGameBtn.setFont(new Font("Ariel", Font.BOLD, 32));
-        
+
         this.continueBtn = new JButton();
         this.continueBtn.setText("Continue");
         this.continueBtn.addActionListener(this);
         this.continueBtn.setPreferredSize(buttonSize);
         this.continueBtn.setFont(new Font("Ariel", Font.BOLD, 32));
-        
-        if(this.saveManager.getQuestionNumber() <= 0){
+
+        if (this.saveManager.getQuestionNumber() <= 0) {
             this.continueBtn.setEnabled(false);
         }
-        
+
         this.quitBtn = new JButton();
         this.quitBtn.setText("Quit");
         this.quitBtn.addActionListener(this);
         this.quitBtn.setPreferredSize(buttonSize);
         this.quitBtn.setFont(new Font("Ariel", Font.BOLD, 32));
-        
+
         this.buttonPanel.add(newGameBtn);
         this.buttonPanel.add(continueBtn);
         this.buttonPanel.add(quitBtn);
-        
-        
+
+        this.backgroundPanel = new BackgroundImagePanel();
+
         timer = new Timer(25, this);
         timer.start();
-        
+
+        super.add(this.backgroundPanel, BorderLayout.NORTH);
         super.add(this.buttonPanel, BorderLayout.SOUTH);
-    }  
-    
-    public void updateContinue(){
-        if(this.saveManager.getQuestionNumber() <= 0){
+    }
+
+    public void updateContinue() {
+        if (this.saveManager.getQuestionNumber() <= 0) {
             this.continueBtn.setEnabled(false);
-        }else{
+        } else {
             this.continueBtn.setEnabled(true);
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         //get the events source component;
         Object source = e.getSource();
-        
-        if (source == newGameBtn){
+
+        if (source == newGameBtn) {
             System.out.println("New Game!");
             this.saveManager.clearData();
             this.screenGUIContext.gotoMoneyScreen();
         }
-        if(source == continueBtn){
+        if (source == continueBtn) {
             System.out.println("Continue!");
             this.screenGUIContext.gotoMoneyScreen();
         }
-        if(source == quitBtn){
+        if (source == quitBtn) {
             System.out.println("Quit!");
             this.screenGUIContext.close();
         }
     }
-    
+
 }
