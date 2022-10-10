@@ -52,7 +52,7 @@ public class ScreenController extends JFrame implements ActionListener {
 
         moveOnTimer = new Timer(1000, this);
 
-        this.gotoFinaleScreen();
+        this.gotoHomeScreen();
     }
 
     private void changeScreen(String key) {
@@ -83,6 +83,7 @@ public class ScreenController extends JFrame implements ActionListener {
 
     //changes panel to the finale screen
     public void gotoFinaleScreen() {
+        this.finaleScreen.startFinale();
         this.changeScreen("finale");
     }
     
@@ -100,7 +101,8 @@ public class ScreenController extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == moveOnTimer) {
-            if (this.saveManager.getQuestionNumber() > 15) {
+            if (this.saveManager.getQuestionNumber() >= 15) {
+                this.cancelTimer();
                 this.saveManager.clearData();
                 this.gotoFinaleScreen();
             } else {

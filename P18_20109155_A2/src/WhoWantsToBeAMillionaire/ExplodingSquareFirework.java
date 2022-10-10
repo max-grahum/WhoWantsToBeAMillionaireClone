@@ -13,7 +13,7 @@ public class ExplodingSquareFirework extends ExplodingFirework {
         this.firework.draw(g);
         if (this.firework.dead) {
             this.exploded = true;
-            g.fillRect((int) this.firework.xPos - (this.SIZE / 2), (int) (ScreenController.HEIGHT - this.firework.yPos) - (this.SIZE / 2), SIZE, SIZE);
+            g.drawRect((int) this.firework.xPos - (this.SIZE / 2), (int) (ScreenController.HEIGHT - this.firework.yPos) - (this.SIZE / 2), SIZE, SIZE);
         }
     }
 

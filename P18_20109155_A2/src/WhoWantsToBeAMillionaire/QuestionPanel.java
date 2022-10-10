@@ -98,10 +98,10 @@ public class QuestionPanel extends JPanel implements ActionListener {
         if (this.saveManager.getAudience()) {
             this.hAudienceBtn.setEnabled(false);
         }
-        this.ansBtns.get("a").setText("a:" + question.getAnswer("a"));
-        this.ansBtns.get("b").setText("b:" + question.getAnswer("b"));
-        this.ansBtns.get("c").setText("c:" + question.getAnswer("c"));
-        this.ansBtns.get("d").setText("d:" + question.getAnswer("d"));
+        this.ansBtns.get("a").setText("a: " + question.getAnswer("a"));
+        this.ansBtns.get("b").setText("b: " + question.getAnswer("b"));
+        this.ansBtns.get("c").setText("c: " + question.getAnswer("c"));
+        this.ansBtns.get("d").setText("d: " + question.getAnswer("d"));
 
         for (int i = 0; i < this.ansBtns.size(); i++) {
             JButton button = this.ansBtns.get(Character.toString((char) (97 + i)));
