@@ -6,25 +6,36 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class FinaleScreen extends JPanel implements ActionListener {
 
     private final DrawPanel drawPanel;
-    
+
     private ScreenController screenGUIContext;
+    
+    private ExplodingFireworkFactory explodingFireworkFactory;
+
+    private final int FIREWORK_AMOUNT = 10;
+    private ArrayList<ExplodingFirework> fireworks;
 
     private Timer timer;
 
     public FinaleScreen(ScreenController screenGUIContext) {
         super(new BorderLayout());
         this.drawPanel = new DrawPanel();
-        
+
         this.screenGUIContext = screenGUIContext;
 
-        timer = new Timer(25, this);
+        this.explodingFireworkFactory = new ExplodingFireworkFactory();
+        this.fireworks = new ArrayList<>();
+        for (int i = 0; i < FIREWORK_AMOUNT; i++) {
+            this.fireworks.add(this.explodingFireworkFactory.createRandomExplodingFirework());
+        }
+
+        timer = new Timer(40, this);
         timer.start();
 
         super.add(this.drawPanel, BorderLayout.NORTH);
@@ -43,7 +54,9 @@ public class FinaleScreen extends JPanel implements ActionListener {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             
-            
+            for (ExplodingFirework firework : fireworks) {
+                firework.draw(g);
+            }
         }
 
     }

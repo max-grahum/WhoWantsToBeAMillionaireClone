@@ -52,7 +52,7 @@ public class ScreenController extends JFrame implements ActionListener {
 
         moveOnTimer = new Timer(1000, this);
 
-        this.gotoHomeScreen();
+        this.gotoFinaleScreen();
     }
 
     private void changeScreen(String key) {
