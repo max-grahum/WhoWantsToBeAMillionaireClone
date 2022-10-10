@@ -21,40 +21,42 @@ public class QAScreen extends JPanel {
 
     private Help5050 help5050;
     private HelpAudience helpAudience;
-    
-    private JPanel decorPanel;
+
+    private JPanel decorPanel, homeBtnPanel;
     private JButton homeBtn;
-    
+
     private Dimension panelSize;
-    
+
     private QuestionPanel questionPanel;
     private Question currentQuestion;
     private QuestionPool questionPool;
 
     public QAScreen(ScreenController screenGUIContext) {
-        super(new BorderLayout());
         super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
 
         this.audiencePanel = new AudiencePanel();
         this.audiencePanel.setVisible(false);
-        super.add(this.audiencePanel, BorderLayout.WEST);
 
         this.panelSize = new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT / 2);
-        
+
         this.screenGUIContext = screenGUIContext;
-        
-        this.decorPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+
+        this.decorPanel = new JPanel(new BorderLayout());
         this.decorPanel.setPreferredSize(this.panelSize);
         this.homeBtn = new JButton("Home");
         this.homeBtn.setFont(new Font("Ariel", Font.BOLD, 16));
         this.homeBtn.setPreferredSize(new Dimension(100, 75));
-        this.homeBtn.addActionListener(new ActionListener(){
+        this.homeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 screenGUIContext.gotoHomeScreen();
-            } 
+            }
         });
-        this.decorPanel.add(this.homeBtn);
+        this.decorPanel.add(this.audiencePanel, BorderLayout.EAST);
+        this.homeBtnPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        this.homeBtnPanel.add(this.homeBtn);
+        this.decorPanel.add(this.homeBtnPanel);
+        
 
         this.questionPanel = new QuestionPanel(this, help5050);
 
