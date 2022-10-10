@@ -84,7 +84,15 @@ public class HomeScreen extends JPanel implements ActionListener {
         timer.start();
         
         super.add(this.buttonPanel, BorderLayout.SOUTH);
-    }    
+    }  
+    
+    public void updateContinue(){
+        if(this.saveManager.getQuestionNumber() <= 0){
+            this.continueBtn.setEnabled(false);
+        }else{
+            this.continueBtn.setEnabled(true);
+        }
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) {

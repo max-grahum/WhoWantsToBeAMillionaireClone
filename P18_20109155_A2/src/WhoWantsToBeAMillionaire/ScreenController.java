@@ -21,7 +21,6 @@ public class ScreenController extends JFrame implements ActionListener {
     private final HomeScreen homeScreen;
     private final QAScreen qaScreen;
     private final MoneyScreen moneyScreen;
-    private final PauseScreen pauseScreen;
     private final FinaleScreen finaleScreen;
 
     private Timer moveOnTimer;
@@ -36,13 +35,11 @@ public class ScreenController extends JFrame implements ActionListener {
         this.homeScreen = new HomeScreen(this);
         this.moneyScreen = new MoneyScreen(this);
         this.qaScreen = new QAScreen(this);
-        this.pauseScreen = new PauseScreen(this);
         this.finaleScreen = new FinaleScreen(this);
 
         this.panelHolder.add(this.homeScreen, "home");
         this.panelHolder.add(this.moneyScreen, "money");
         this.panelHolder.add(this.qaScreen, "qa");
-        this.panelHolder.add(this.pauseScreen, "pause");
         this.panelHolder.add(this.finaleScreen, "finale");
 
         //GUI Setup
@@ -67,6 +64,7 @@ public class ScreenController extends JFrame implements ActionListener {
 
     //changes panel to home
     public void gotoHomeScreen() {
+        this.homeScreen.updateContinue();
         this.changeScreen("home");
     }
 
@@ -83,11 +81,6 @@ public class ScreenController extends JFrame implements ActionListener {
         this.moneyScreen.updateQuestionNumber();
         this.changeScreen("money");
         moveOnTimer.start();
-    }
-
-    //changes panel to pause screen
-    public void gotoPauseScreen() {
-        this.changeScreen("pause");
     }
 
     //changes panel to the finale screen
