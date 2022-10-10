@@ -13,12 +13,16 @@ import javax.swing.Timer;
 public class FinaleScreen extends JPanel implements ActionListener {
 
     private final DrawPanel drawPanel;
+    
+    private ScreenController screenGUIContext;
 
     private Timer timer;
 
     public FinaleScreen(ScreenController screenGUIContext) {
         super(new BorderLayout());
         this.drawPanel = new DrawPanel();
+        
+        this.screenGUIContext = screenGUIContext;
 
         timer = new Timer(25, this);
         timer.start();
@@ -38,6 +42,8 @@ public class FinaleScreen extends JPanel implements ActionListener {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+            
+            
         }
 
     }
