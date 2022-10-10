@@ -16,6 +16,10 @@ public class CustomMoneyPanel {
         this.HEIGHT = 40;
     }
     
+    public void setColour(Color colour){
+        this.colour = colour;
+    }
+    
     public void drawCustomMoneyPanel(Graphics g, int x, int y){
         g.setColor(this.colour);
         g.fillRect(x, y, this.WIDTH, this.HEIGHT);

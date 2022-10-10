@@ -1,8 +1,11 @@
 package WhoWantsToBeAMillionaire;
 
 public class Game {
+    
+    public static int questionNumber;
 
     public Game() {
+        SaveManager saveManager = SaveManager.getInstance();
         ScreenController gui = new ScreenController();
     }
     

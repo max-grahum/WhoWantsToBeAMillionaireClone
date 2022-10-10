@@ -27,6 +27,8 @@ public class HomeScreen extends JPanel implements ActionListener {
     
     private final JPanel buttonPanel;
     
+    private final SaveManager saveManager;
+    
     private final JButton newGameBtn, continueBtn, quitBtn;
     private final Dimension buttonSize, panelSize;
     
@@ -39,6 +41,8 @@ public class HomeScreen extends JPanel implements ActionListener {
         super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
         
         this.screenGUIContext = screenGUIContext;
+        
+        this.saveManager = SaveManager.getInstance();
         
         this.panelSize = new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT/2);
         
@@ -60,6 +64,10 @@ public class HomeScreen extends JPanel implements ActionListener {
         this.continueBtn.addActionListener(this);
         this.continueBtn.setPreferredSize(buttonSize);
         this.continueBtn.setFont(new Font("Ariel", Font.BOLD, 32));
+        
+        if(this.saveManager.getQuestionNumber() <= 0){
+            this.continueBtn.setEnabled(false);
+        }
         
         this.quitBtn = new JButton();
         this.quitBtn.setText("Quit");
@@ -86,6 +94,7 @@ public class HomeScreen extends JPanel implements ActionListener {
         
         if (source == newGameBtn){
             System.out.println("New Game!");
+            this.saveManager.clearData();
             this.screenGUIContext.gotoMoneyScreen();
         }
         if(source == continueBtn){
