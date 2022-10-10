@@ -23,6 +23,8 @@ public class QuestionPanel extends JPanel implements ActionListener {
     private final JButton h5050Btn, hAudienceBtn;
     private Help5050 help5050;
 
+    private SaveManager saveManager;
+
     private final JLabel qLbl;
     private final JPanel qPanel;
     private final Dimension buttonSize;
@@ -36,6 +38,8 @@ public class QuestionPanel extends JPanel implements ActionListener {
         super.setBackground(Color.BLUE);
 
         this.qaContext = qaContext;
+
+        this.saveManager = SaveManager.getInstance();
 
         this.answered = false;
 
@@ -85,9 +89,15 @@ public class QuestionPanel extends JPanel implements ActionListener {
         this.answered = false;
         this.question = question;
         this.qLbl.setText(question.toString());
-        
+
         this.help5050 = help5050;
 
+        if (this.saveManager.get5050()) {
+            this.h5050Btn.setEnabled(false);
+        }
+        if (this.saveManager.getAudience()) {
+            this.hAudienceBtn.setEnabled(false);
+        }
         this.ansBtns.get("a").setText("a:" + question.getAnswer("a"));
         this.ansBtns.get("b").setText("b:" + question.getAnswer("b"));
         this.ansBtns.get("c").setText("c:" + question.getAnswer("c"));
@@ -145,22 +155,37 @@ public class QuestionPanel extends JPanel implements ActionListener {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(QuestionPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                if (result) {
+                    this.saveManager.saveData(this.saveManager.getQuestionNumber() + 1, this.saveManager.get5050(), this.saveManager.getAudience());
+                } else {
+                    this.saveManager.clearData();
+                }
                 this.qaContext.HandleAnswer(result);
+
             }
         }
 
         if (source == this.h5050Btn) {
-            for (char character = 'a'; character <= 'd'; character++) {
-                String string = Character.toString(character);
-                JButton button = this.ansBtns.get(string);
-                boolean enable = this.help5050.answers.get(string);
-                button.setEnabled(enable);
-                button.update(button.getGraphics());
+            if (!this.saveManager.get5050()) {
+                this.h5050Btn.setEnabled(false);
+                for (char character = 'a'; character <= 'd'; character++) {
+                    String string = Character.toString(character);
+                    JButton button = this.ansBtns.get(string);
+                    boolean enable = this.help5050.answers.get(string);
+                    button.setEnabled(enable);
+                    button.update(button.getGraphics());
+                }
+                this.saveManager.saveData(this.saveManager.getQuestionNumber(), true, this.saveManager.getAudience());
             }
 
         }
         if (source == this.hAudienceBtn) {
-            this.qaContext.useAudience();
+            if (!this.saveManager.getAudience()) {
+                this.hAudienceBtn.setEnabled(false);
+                this.qaContext.useAudience();
+                this.saveManager.saveData(this.saveManager.getQuestionNumber(), this.saveManager.get5050(), true);
+            }
         }
+
     }
 }

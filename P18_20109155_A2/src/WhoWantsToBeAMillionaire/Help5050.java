@@ -26,14 +26,12 @@ public class Help5050 extends Help {
         //generates the random other option
         Random rand = new Random();
         int randomNumber = index;
-        while ((randomNumber = rand.nextInt(3)) == index) {
+        while ((randomNumber = ('a' + rand.nextInt(3))) == index) {
         }
 
-        int other = (randomNumber + 'a');
 
         for (char character = 'a'; character <= 'd'; character++) {
-            Boolean anOption = (character == other || character == index);
-            System.out.println(anOption);
+            Boolean anOption = (character == randomNumber || character == index);
             this.answers.put(Character.toString(character), anOption);
         }
     }

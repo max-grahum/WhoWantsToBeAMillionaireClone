@@ -12,18 +12,21 @@ public class MoneyScreen extends JPanel {
     private final DrawPanel drawPanel;
     
     private ScreenController screenGUIContext;
+    
+    private SaveManager saveManager;
 
     private final CustomMoneyPanel[] moneyPanels;
     private final int[] values;
     private final Color[] colours;
 
-    private final int currentIndex;
+    private int currentIndex;
 
     public MoneyScreen(ScreenController screenGUIContext) {
         super(new BorderLayout());
         this.drawPanel = new DrawPanel();
 
-        currentIndex = 3;
+        this.saveManager = SaveManager.getInstance();
+        this.currentIndex = this.saveManager.getQuestionNumber();
         
         this.screenGUIContext = screenGUIContext;
 
@@ -49,6 +52,22 @@ public class MoneyScreen extends JPanel {
         }
 
         super.add(this.drawPanel);
+    }
+    
+    public void updateQuestionNumber(){
+        this.currentIndex = this.saveManager.getQuestionNumber();
+        for (int i = 0; i < this.moneyPanels.length; i++) {
+            Color currentColour;
+            if (i < currentIndex) {
+                currentColour = this.colours[0];
+            } else if (i == currentIndex) {
+                currentColour = this.colours[1];
+            } else {
+                currentColour = this.colours[2];
+            }
+
+            this.moneyPanels[i].setColour(currentColour);
+        }
     }
 
     public class DrawPanel extends JPanel {

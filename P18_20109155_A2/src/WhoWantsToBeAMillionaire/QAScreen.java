@@ -17,7 +17,10 @@ public class QAScreen extends JPanel {
 
     private Help5050 help5050;
     private HelpAudience helpAudience;
-
+    
+    private JPanel decorPanel;
+    
+    
     private QuestionPanel questionPanel;
     private Question currentQuestion;
     private QuestionPool questionPool;
@@ -55,6 +58,7 @@ public class QAScreen extends JPanel {
             this.screenGUIContext.gotoMoneyScreen();
         } else {
             System.out.println("Wrong!");
+            SaveManager.getInstance().clearData();
             this.screenGUIContext.gotoHomeScreen();
         }
     }
