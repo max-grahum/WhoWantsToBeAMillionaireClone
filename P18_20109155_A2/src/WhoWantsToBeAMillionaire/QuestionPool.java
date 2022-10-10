@@ -21,7 +21,6 @@ public class QuestionPool {
         int randomNumber = -1;
         while (pulledNumbers.contains(randomNumber = rand.nextInt(AMOUNT_OF_QUESTIONS-1)+1)) {
         }
-        System.out.println(randomNumber);
         pulledNumbers.add(randomNumber);
         return SaveManager.getInstance().getQuestion(randomNumber);
     }

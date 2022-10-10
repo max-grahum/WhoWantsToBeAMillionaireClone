@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class QAScreen extends JPanel {
@@ -19,7 +23,9 @@ public class QAScreen extends JPanel {
     private HelpAudience helpAudience;
     
     private JPanel decorPanel;
+    private JButton homeBtn;
     
+    private Dimension panelSize;
     
     private QuestionPanel questionPanel;
     private Question currentQuestion;
@@ -33,13 +39,29 @@ public class QAScreen extends JPanel {
         this.audiencePanel.setVisible(false);
         super.add(this.audiencePanel, BorderLayout.WEST);
 
+        this.panelSize = new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT / 2);
+        
         this.screenGUIContext = screenGUIContext;
+        
+        this.decorPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        this.decorPanel.setPreferredSize(this.panelSize);
+        this.homeBtn = new JButton("Home");
+        this.homeBtn.setFont(new Font("Ariel", Font.BOLD, 16));
+        this.homeBtn.setPreferredSize(new Dimension(100, 75));
+        this.homeBtn.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                screenGUIContext.gotoHomeScreen();
+            } 
+        });
+        this.decorPanel.add(this.homeBtn);
 
         this.questionPanel = new QuestionPanel(this, help5050);
 
         this.questionPool = new QuestionPool();
 
-        this.questionPanel.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT / 2));
+        this.questionPanel.setPreferredSize(this.panelSize);
+        super.add(this.decorPanel, BorderLayout.NORTH);
         super.add(this.questionPanel, BorderLayout.SOUTH);
     }
 
