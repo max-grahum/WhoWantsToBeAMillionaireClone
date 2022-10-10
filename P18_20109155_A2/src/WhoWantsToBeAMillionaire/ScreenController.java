@@ -70,9 +70,7 @@ public class ScreenController extends JFrame implements ActionListener {
 
     //changes panel to Q&A screen
     private void gotoQAScreen() {
-        if (moveOnTimer.isRunning()) {
-            moveOnTimer.stop();
-        }
+        this.cancelTimer();
         this.changeScreen("qa");
     }
 
@@ -86,6 +84,12 @@ public class ScreenController extends JFrame implements ActionListener {
     //changes panel to the finale screen
     public void gotoFinaleScreen() {
         this.changeScreen("finale");
+    }
+    
+    public void cancelTimer(){
+        if (moveOnTimer.isRunning()) {
+            moveOnTimer.stop();
+        }
     }
 
     public void close() {
