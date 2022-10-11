@@ -4,21 +4,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//central database manager class for the program
 public class DBManager {
+
+    //contants for embedded database
     private static final String USER_NAME = "username"; //your DB username
     private static final String PASSWORD = "password"; //your DB password
     private static final String URL = "jdbc:derby:MillionaireDB_Ebd; create=true";  //url of the DB host
 
     Connection conn;
-    
+
+    //uses singleton pattern
     private static DBManager instance;
 
     private DBManager() {
         establishConnection();
     }
-    
-    public static DBManager getInstance(){
-        if(instance == null){
+
+    public static DBManager getInstance() {
+        if (instance == null) {
             instance = new DBManager();
         }
         return instance;

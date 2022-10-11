@@ -29,7 +29,7 @@ public class SaveManager {
         try {
             if (!this.checkTableExists("DATA")) {
                 this.statement.addBatch("CREATE  TABLE DATA  (ID INT, QUESTIONNUM  INT,  HELPFIFTY BOOLEAN,  HELPAUDIENCE BOOLEAN)");
-                this.statement.addBatch("INSERT INTO DATA VALUES(1, 0, false, false)");
+                this.statement.addBatch("INSERT INTO DATA VALUES(1, 0, FALSE, FALSE)");
             }
             if (!this.checkTableExists("QUESTIONS")) {
                 this.statement.addBatch("CREATE  TABLE QUESTIONS (ID INT, PROMT1 VARCHAR(70), PROMT2 VARCHAR(70), ANSWERA VARCHAR(30), ANSWERB VARCHAR(30), ANSWERC VARCHAR(30), ANSWERD VARCHAR(30), CORRECTANSWER VARCHAR(5))");

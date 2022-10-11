@@ -14,45 +14,47 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class FinaleScreen extends JPanel implements ActionListener {
-    
-    private final DrawPanel drawPanel;
-    
-    private ScreenController screenGUIContext;
-    
-    private ExplodingFireworkFactory explodingFireworkFactory;
-    
+
     private final int FIREWORK_AMOUNT = 15;
+
+    private final DrawPanel drawPanel;
+    private final ScreenController screenGUIContext;
+    private final ExplodingFireworkFactory explodingFireworkFactory;
+
     private ArrayList<ExplodingFirework> fireworks;
-    
+
     private Timer drawTimer, launchTimer;
     private int currentFirework = 0;
-    
+
     public FinaleScreen(ScreenController screenGUIContext) {
         super(new BorderLayout());
+
         this.drawPanel = new DrawPanel();
-        
         this.screenGUIContext = screenGUIContext;
-        
+
+        //generate random fireworks from factory
         this.explodingFireworkFactory = new ExplodingFireworkFactory();
         this.fireworks = new ArrayList<>();
         for (int i = 0; i < FIREWORK_AMOUNT; i++) {
             this.fireworks.add(this.explodingFireworkFactory.createRandomExplodingFirework());
         }
-        
+
         drawTimer = new Timer(40, this);
         drawTimer.start();
-        
+
         launchTimer = new Timer(500, this);
-        
+
         super.add(this.drawPanel, BorderLayout.NORTH);
     }
-    
+
+    //periodically launch fireworks
     public void startFinale() {
         this.launchTimer.start();
     }
-    
+
+    //decorations
     public class DrawPanel extends JPanel {
-        
+
         private JButton homeBtn;
 
         //setup draw panel
@@ -60,7 +62,8 @@ public class FinaleScreen extends JPanel implements ActionListener {
             super(new FlowLayout(FlowLayout.CENTER, 0, 400));
             super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
             super.setBackground(Color.BLUE);
-            
+
+            //functional return home button
             this.homeBtn = new JButton("Home");
             this.homeBtn.setFont(new Font("Ariel", Font.BOLD, 48));
             this.homeBtn.setPreferredSize(new Dimension(300, 100));
@@ -71,6 +74,7 @@ public class FinaleScreen extends JPanel implements ActionListener {
                     screenGUIContext.gotoHomeScreen();
                 }
             });
+
             super.add(this.homeBtn);
         }
 
@@ -78,20 +82,22 @@ public class FinaleScreen extends JPanel implements ActionListener {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            
+
+            //draw all fireworks
             for (ExplodingFirework firework : fireworks) {
                 firework.draw(g);
             }
-            
+
+            //draw congratulations! text
             g.setColor(Color.BLACK);
             g.fillRect((ScreenController.WIDTH / 2) - 400, (ScreenController.HEIGHT / 2) - 200, 800, 175);
             g.setColor(Color.WHITE);
             g.setFont(new Font("Ariel", Font.BOLD, 64));
             g.drawString("CONGRATULATIONS!!", (ScreenController.WIDTH / 2) - 350, (ScreenController.HEIGHT / 2) - 100);
         }
-        
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -102,6 +108,8 @@ public class FinaleScreen extends JPanel implements ActionListener {
         if (source == drawTimer) {
             drawPanel.repaint();
         }
+
+        //if the launchTimer finished, then launch another firework
         if (source == launchTimer) {
             this.fireworks.get(currentFirework).launch();
             currentFirework++;

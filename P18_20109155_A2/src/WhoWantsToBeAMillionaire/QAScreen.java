@@ -34,6 +34,7 @@ public class QAScreen extends JPanel {
     private QuestionPool questionPool;
 
     public QAScreen(ScreenController screenGUIContext) {
+        super(new BorderLayout());
         super.setPreferredSize(new Dimension(ScreenController.WIDTH, ScreenController.HEIGHT));
 
         this.audiencePanel = new AudiencePanel();
@@ -55,7 +56,9 @@ public class QAScreen extends JPanel {
             }
         });
         this.backgroundPanel.add(this.audiencePanel, BorderLayout.EAST);
-        this.homeBtnPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        this.homeBtnPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
+        this.homeBtnPanel.setPreferredSize(new Dimension(ScreenController.WIDTH / 5, ScreenController.HEIGHT / 2));
+        this.homeBtnPanel.setOpaque(false);
         this.homeBtnPanel.add(this.homeBtn);
         this.backgroundPanel.add(this.homeBtnPanel);
 
@@ -64,7 +67,7 @@ public class QAScreen extends JPanel {
         this.questionPool = new QuestionPool();
 
         this.questionPanel.setPreferredSize(this.panelSize);
-        super.add(this.backgroundPanel, BorderLayout.NORTH);
+        super.add(this.backgroundPanel, BorderLayout.CENTER);
         super.add(this.questionPanel, BorderLayout.SOUTH);
     }
 
@@ -96,7 +99,7 @@ public class QAScreen extends JPanel {
 
         //setup draw panel
         public AudiencePanel() {
-            super.setPreferredSize(new Dimension(ScreenController.WIDTH / 3, ScreenController.HEIGHT / 3));
+            super.setPreferredSize(new Dimension(ScreenController.WIDTH / 3, ScreenController.HEIGHT / 2));
             super.setBackground(Color.BLACK);
             super.setFont(new Font("Ariel", Font.BOLD, 26));
             super.setForeground(Color.WHITE);

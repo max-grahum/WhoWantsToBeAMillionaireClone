@@ -92,12 +92,10 @@ public class QuestionPanel extends JPanel implements ActionListener {
 
         this.help5050 = help5050;
 
-        if (this.saveManager.get5050()) {
-            this.h5050Btn.setEnabled(false);
-        }
-        if (this.saveManager.getAudience()) {
-            this.hAudienceBtn.setEnabled(false);
-        }
+        this.h5050Btn.setEnabled(!this.saveManager.get5050());
+
+        this.hAudienceBtn.setEnabled(!this.saveManager.getAudience());
+
         this.ansBtns.get("a").setText("a: " + question.getAnswer("a"));
         this.ansBtns.get("b").setText("b: " + question.getAnswer("b"));
         this.ansBtns.get("c").setText("c: " + question.getAnswer("c"));

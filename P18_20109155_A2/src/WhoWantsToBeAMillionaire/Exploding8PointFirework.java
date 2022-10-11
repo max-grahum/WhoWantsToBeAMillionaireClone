@@ -2,12 +2,14 @@ package WhoWantsToBeAMillionaire;
 
 import java.awt.Graphics;
 
+//extension of the default explodion firework
 public class Exploding8PointFirework extends ExplodingFirework {
 
     public Exploding8PointFirework(Firework firework) {
         super(firework);
     }
 
+    //overridden draw method to draw a different shape
     @Override
     public void draw(Graphics g) {
         this.firework.draw(g);
