@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Wed Oct 12 13:38:54 NZDT 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-c9a1-4889-000007282818 
-on database directory C:\Users\max_g\OneDrive\Documents\GitHub\WhoWantsToBeAMillionaireClone\P18_20109155_A2\MillionaireDB_Ebd with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
+Wed Oct 12 22:33:07 NZDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-cb8a-6356-000006be37e8 
+on database directory C:\Users\max_g\OneDrive\Documents\GitHub\WhoWantsToBeAMillionaireClone\P18_20109155_A2\MillionaireDB_Ebd with class loader sun.misc.Launcher$AppClassLoader@45ee12a7 
 Loaded from file:/C:/Users/max_g/Downloads/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_202-b08

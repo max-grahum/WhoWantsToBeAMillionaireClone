@@ -24,6 +24,11 @@ public class CustomMoneyPanel {
         this.colour = colour;
     }
 
+    //get the colour of the panel
+    public Color getColour() {
+        return this.colour;
+    }
+
     //draw method
     public void drawCustomMoneyPanel(Graphics g, int x, int y) {
         g.setColor(this.colour);
