@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package WhoWantsToBeAMillionaire;
 
-/**
- *
- * @author max_g
- */
+//class to store a 2d point 
+//(used in the firework class to keep track of the firework dots)
 public class Point2D {
-    
+
     public int x, y;
-    
-    public Point2D(int x, int y){
+
+    public Point2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    
+
 }

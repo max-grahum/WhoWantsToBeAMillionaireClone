@@ -104,7 +104,7 @@ public class ScreenController extends JFrame implements ActionListener {
                 this.saveManager.clearData();
                 this.gotoFinaleScreen();
             } else {
-                this.qaScreen.getNewQuestion();
+                this.qaScreen.updateWithNewQuestion();
                 this.gotoQAScreen();
             }
         }

@@ -3,8 +3,10 @@ package WhoWantsToBeAMillionaire;
 import java.util.HashMap;
 import java.util.Random;
 
+//helpline that disables 2 of the 4 options
 public class Help5050 extends Help {
 
+    //contains true or false for each answer if it is disabled or not
     public HashMap<String, Boolean> answers;
 
     public Help5050(boolean used, String correctAnswer) {

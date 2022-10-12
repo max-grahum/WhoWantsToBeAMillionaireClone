@@ -1,9 +1,9 @@
 package WhoWantsToBeAMillionaire;
 
-import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Random;
 
+//help line that gives you the "audiences" answers
 public class HelpAudience extends Help{
    
     public HashMap<String, Integer> percents;

@@ -8,15 +8,21 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//Singleton save manager
 public class SaveManager {
 
+    //singleton instance
     private static SaveManager instance;
 
+    //database variables
     private DBManager dbManager;
     private Connection conn;
     private Statement statement;
 
+    //private singleton constructor
     private SaveManager() {
+
+        //setup up database components
         dbManager = DBManager.getInstance();
         conn = dbManager.getConnection();
         try {
@@ -26,6 +32,8 @@ public class SaveManager {
             System.out.println(ex.getMessage());
 
         }
+
+        //setup tables if they dont exist
         try {
             if (!this.checkTableExists("DATA")) {
                 this.statement.addBatch("CREATE  TABLE DATA  (ID INT, QUESTIONNUM  INT,  HELPFIFTY BOOLEAN,  HELPAUDIENCE BOOLEAN)");
@@ -42,6 +50,7 @@ public class SaveManager {
 
     }
 
+    //retrieves the instance
     public static SaveManager getInstance() {
         if (instance == null) {
             instance = new SaveManager();
@@ -58,6 +67,7 @@ public class SaveManager {
             String[] types = {"TABLE"};
             ResultSet rs = dbmd.getTables(null, null, null, types);
 
+            //searches for a table with a matching names
             while (rs.next()) {
                 String table_name = rs.getString("TABLE_NAME");
                 if (table_name.equalsIgnoreCase(name)) {
@@ -73,6 +83,7 @@ public class SaveManager {
         return result;
     }
 
+    //insert all questions into the question table
     public void setUpQuestions() {
         try {
             this.statement.addBatch("INSERT INTO QUESTIONS VALUES(1,"
@@ -182,18 +193,25 @@ public class SaveManager {
         }
     }
 
+    //resets all tables
     public void clearData() {
         try {
+
+            //drops data table if they exist
             if (this.checkTableExists("DATA")) {
                 this.statement.addBatch("Drop table DATA");
             }
+
+            //drops question table if they exist
             if (this.checkTableExists("QUESTIONS")) {
                 this.statement.addBatch("Drop table QUESTIONS");
             }
 
+            //creates new data table
             this.statement.addBatch("CREATE  TABLE DATA (ID INT, QUESTIONNUM  INT,  HELPFIFTY BOOLEAN,  HELPAUDIENCE BOOLEAN)");
             this.statement.addBatch("INSERT INTO DATA VALUES(1, 0, FALSE, FALSE)");
 
+            //create new questions table
             this.statement.addBatch("CREATE  TABLE QUESTIONS (ID INT, PROMT1 VARCHAR(70), PROMT2 VARCHAR(70), ANSWERA VARCHAR(30), ANSWERB VARCHAR(30), ANSWERC VARCHAR(30), ANSWERD VARCHAR(30), CORRECTANSWER VARCHAR(5))");
             this.setUpQuestions();
 
@@ -205,8 +223,13 @@ public class SaveManager {
         }
     }
 
+    //save data into data table
     public void saveData(int questionNum, boolean help5050, boolean helpAudience) {
+
+        //print out what is getting saved
         System.out.println("SAVING(" + questionNum + ", " + help5050 + ", " + helpAudience + ")");
+
+        //try to update the data in the table
         try {
             this.statement.addBatch("UPDATE DATA "
                     + "SET ID = 1, QUESTIONNUM = " + questionNum + ", HELPFIFTY = " + help5050 + ", HELPAUDIENCE = " + helpAudience);
@@ -217,6 +240,7 @@ public class SaveManager {
         }
     }
 
+    //returns a question object from the questions table
     public Question getQuestion(int index) {
         Question question = null;
         try {
@@ -236,6 +260,7 @@ public class SaveManager {
         return question;
     }
 
+    //private helper method to return a string of data
     private String getData(String columnName) {
         String data = "0";
         try {
@@ -250,14 +275,17 @@ public class SaveManager {
         return data;
     }
 
+    //public method to get the current question number
     public int getQuestionNumber() {
         return Integer.parseInt(this.getData("QUESTIONNUM"));
     }
 
+    //public method to get if the 5050 help line has been used
     public boolean get5050() {
         return Boolean.parseBoolean(this.getData("HELPFIFTY"));
     }
 
+    //public method to get if the audience help line has been used
     public boolean getAudience() {
         return Boolean.parseBoolean(this.getData("HELPAUDIENCE"));
     }

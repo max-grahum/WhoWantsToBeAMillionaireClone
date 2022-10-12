@@ -30,6 +30,6 @@ public class CustomMoneyPanel {
         g.fillRect(x, y, this.WIDTH, this.HEIGHT);
         g.setColor(Color.BLACK);
         g.drawRect(x, y, this.WIDTH, this.HEIGHT);
-        g.drawString(Integer.toString(this.value), x + this.WIDTH / 2 - 25, y + this.HEIGHT / 2 + 10);
+        g.drawString("$" + Integer.toString(this.value), x + this.WIDTH / 2 - 25, y + this.HEIGHT / 2 + 10);
     }
 }

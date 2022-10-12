@@ -2,11 +2,14 @@ package WhoWantsToBeAMillionaire;
 
 import java.util.HashMap;
 
+//data structure to hold info about the question
 public class Question implements QuestionInterface {
 
+    //variables about the question
     private String questionPromt1, questionPromt2, correctAnswer;
     private final HashMap<String, String> answers;
 
+    //question setup
     public Question(String questionPromt1, String questionPromt2, String[] answers, String correctAnswer) {
         this.questionPromt1 = questionPromt1;
         this.questionPromt2 = questionPromt2;
@@ -36,6 +39,8 @@ public class Question implements QuestionInterface {
         return this.correctAnswer;
     }
 
+    //returns the answer corresponding to a key
+    @Override
     public String getAnswer(String key) {
         return this.answers.get(key);
     }

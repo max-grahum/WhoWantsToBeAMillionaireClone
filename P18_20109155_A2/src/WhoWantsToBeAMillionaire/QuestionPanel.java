@@ -13,41 +13,54 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+//gui component for the panel with the questions and answers
 public class QuestionPanel extends JPanel implements ActionListener {
 
-    private Question question;
-    private QAScreen qaContext;
+    //class references
+    private final SaveManager saveManager;
+    private final QAScreen qaContext;
 
+    //button sizes for consistency
+    private final Dimension buttonSize;
+
+    //question information object
+    private Question question;
+
+    //answer buttons
     private HashMap<String, JButton> ansBtns;
 
+    //help lines
     private final JButton h5050Btn, hAudienceBtn;
     private Help5050 help5050;
 
-    private SaveManager saveManager;
-
+    //question gui
     private final JLabel qLbl;
     private final JPanel qPanel;
-    private final Dimension buttonSize;
 
-    private Font buttonFont;
+    //panel to hold buttons
+    private final Font buttonFont;
 
+    //answered flag
     private boolean answered;
 
     public QuestionPanel(QAScreen qaContext, Help5050 help5050) {
         super(new FlowLayout(FlowLayout.CENTER, 15, 10));
         super.setBackground(Color.BLUE);
 
+        //Class reference context
         this.qaContext = qaContext;
-
         this.saveManager = SaveManager.getInstance();
 
+        //initialise the answered flag
         this.answered = false;
 
         this.help5050 = help5050;
 
+        //set button gui attributes
         this.buttonSize = new Dimension(400, 80);
         this.buttonFont = new Font("Ariel", Font.BOLD, 26);
 
+        //setup help line buttons
         this.h5050Btn = new JButton("50 / 50");
         this.h5050Btn.setPreferredSize(this.buttonSize);
         this.h5050Btn.setFont(buttonFont);
@@ -57,20 +70,25 @@ public class QuestionPanel extends JPanel implements ActionListener {
         this.hAudienceBtn.setFont(buttonFont);
         this.hAudienceBtn.addActionListener(this);
 
+        //setup the question lable holding panel
         this.qPanel = new JPanel();
         this.qPanel.setPreferredSize(new Dimension(900, 80));
         this.qPanel.setBackground(Color.LIGHT_GRAY);
         this.qPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 5));
 
+        //setup the qPanel
         this.qLbl = new JLabel();
         this.qLbl.setFont(new Font("Ariel", Font.BOLD, 24));
 
-        super.add(this.h5050Btn);
-        super.add(this.hAudienceBtn);
+        //add the question label to the question panel
         this.qPanel.add(this.qLbl);
 
+        //add help lines and question panel to screen
+        super.add(this.h5050Btn);
+        super.add(this.hAudienceBtn);
         super.add(this.qPanel);
 
+        //setup answer buttons and add them to the screen
         this.ansBtns = new HashMap<>();
         for (int i = 0; i < 4; i++) {
             JButton ansBtn = new JButton();
@@ -85,22 +103,30 @@ public class QuestionPanel extends JPanel implements ActionListener {
 
     }
 
+    //called to update the current question held in the QuestionPanel
     public void updateQuestion(Question question, Help5050 help5050) {
+
+        //reset answered flag
         this.answered = false;
+
+        //assign new help5050 line
+        this.help5050 = help5050;
+
+        //assign new question
         this.question = question;
         this.qLbl.setText(question.toString());
 
-        this.help5050 = help5050;
-
+        //enable the help line buttons
         this.h5050Btn.setEnabled(!this.saveManager.get5050());
-
         this.hAudienceBtn.setEnabled(!this.saveManager.getAudience());
 
+        //set the answer button texts
         this.ansBtns.get("a").setText("a: " + question.getAnswer("a"));
         this.ansBtns.get("b").setText("b: " + question.getAnswer("b"));
         this.ansBtns.get("c").setText("c: " + question.getAnswer("c"));
         this.ansBtns.get("d").setText("d: " + question.getAnswer("d"));
 
+        //setup buttons
         for (int i = 0; i < this.ansBtns.size(); i++) {
             JButton button = this.ansBtns.get(Character.toString((char) (97 + i)));
             button.setBackground(Color.LIGHT_GRAY);
@@ -114,58 +140,75 @@ public class QuestionPanel extends JPanel implements ActionListener {
         //get the events source component;
         Object source = e.getSource();
 
+        // only if NOT answered
         if (!answered) {
-            boolean result = false;
 
+            //result (correct/not correct)
+            boolean correct = false;
+
+            //get the button pressed
             if (source == this.ansBtns.get("a")) {
                 this.answered = true;
-                result = this.question.isCorrect("a");
+                correct = this.question.isCorrect("a");
                 this.ansBtns.get("a").setBackground(Color.RED);
                 this.ansBtns.get(this.question.getCorrectAnswer()).setBackground(Color.GREEN);
             }
             if (source == this.ansBtns.get("b")) {
                 this.answered = true;
-                result = this.question.isCorrect("b");
+                correct = this.question.isCorrect("b");
                 this.ansBtns.get("b").setBackground(Color.RED);
                 this.ansBtns.get(this.question.getCorrectAnswer()).setBackground(Color.GREEN);
             }
             if (source == this.ansBtns.get("c")) {
                 this.answered = true;
-                result = this.question.isCorrect("c");
+                correct = this.question.isCorrect("c");
                 this.ansBtns.get("c").setBackground(Color.RED);
                 this.ansBtns.get(this.question.getCorrectAnswer()).setBackground(Color.GREEN);
             }
             if (source == this.ansBtns.get("d")) {
                 this.answered = true;
-                result = this.question.isCorrect("d");
+                correct = this.question.isCorrect("d");
                 this.ansBtns.get("d").setBackground(Color.RED);
                 this.ansBtns.get(this.question.getCorrectAnswer()).setBackground(Color.GREEN);
             }
 
+            //if it has been answered
             if (answered) {
+
+                //update the buttons
                 for (int i = 0; i < this.ansBtns.size(); i++) {
                     JButton button = this.ansBtns.get(Character.toString((char) (97 + i)));
                     button.update(button.getGraphics());
                 }
 
+                //wait a second to show colours
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(QuestionPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (result) {
+
+                //handle answer
+                if (correct) {
                     this.saveManager.saveData(this.saveManager.getQuestionNumber() + 1, this.saveManager.get5050(), this.saveManager.getAudience());
                 } else {
                     this.saveManager.clearData();
                 }
-                this.qaContext.HandleAnswer(result);
+                this.qaContext.HandleAnswer(correct);
 
             }
         }
 
+        //if 5050 helpline was pressed
         if (source == this.h5050Btn) {
+
+            //if the 5050 help has not been used
             if (!this.saveManager.get5050()) {
+                
+                //disable the button
                 this.h5050Btn.setEnabled(false);
+                
+                //use the helpline
                 for (char character = 'a'; character <= 'd'; character++) {
                     String string = Character.toString(character);
                     JButton button = this.ansBtns.get(string);
@@ -177,9 +220,17 @@ public class QuestionPanel extends JPanel implements ActionListener {
             }
 
         }
+
+        //if audience helpline was pressed 
         if (source == this.hAudienceBtn) {
+            
+            //if the audience help has not been used
             if (!this.saveManager.getAudience()) {
+                
+                //disable the button
                 this.hAudienceBtn.setEnabled(false);
+                
+                //use the helpline
                 this.qaContext.useAudience();
                 this.saveManager.saveData(this.saveManager.getQuestionNumber(), this.saveManager.get5050(), true);
             }
