@@ -36,6 +36,6 @@ This is for assessment 2 for the COMP603 paper at AUT
 	🗹 Design patterns are used where appropriate
 	🗹 Comments are given
 	🗹 Code is easy to read (follows coding conventions)
-	☐ Version control is used showing multiple commits and branches
-	☐ At least 5 test cases are included which cover the important functionality
-	☐ All test cases are well named
+	🗹 Version control is used showing multiple commits and branches
+	🗹 At least 5 test cases are included which cover the important functionality
+	🗹 All test cases are well named
