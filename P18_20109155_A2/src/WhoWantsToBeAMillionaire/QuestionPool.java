@@ -21,6 +21,11 @@ public class QuestionPool {
         Random rand = new Random();
         int randomNumber = -1;
         
+        //redraw numbers if you run out of them
+        if(pulledNumbers.size() >= AMOUNT_OF_QUESTIONS-1){
+            pulledNumbers.clear();
+        }
+        
         //loop until you find a number not used yet
         while (pulledNumbers.contains(randomNumber = rand.nextInt(AMOUNT_OF_QUESTIONS-1)+1)) {}
         
